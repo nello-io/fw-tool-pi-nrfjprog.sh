@@ -16,6 +16,7 @@ nrfjprog.sh <action> [hexfile]
 ```
 
 where action is one of:
+ * `--info`
  * `--reset`
  * `--pin-reset`
  * `--erase-all`
