@@ -28,7 +28,7 @@ STATUS_COLOR=$GREEN
 TOOLCHAIN_PREFIX=arm-none-eabi
 # assume the tools are on the system path
 TOOLCHAIN_PATH=
-JLINK_OPTIONS="-device nrf51822 -if swd -speed 1000"
+JLINK_OPTIONS="-device nRF52 -if SWD -speed 4000"
 
 HEX=$2
 
