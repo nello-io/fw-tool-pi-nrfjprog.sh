@@ -42,7 +42,8 @@ GDB_PORT=2331
 
 TMPSCRIPT=/tmp/tmp_$$.jlink
 if [ "$1" = "--info" ]; then
-    echo "exit" > $TMPSCRIPT
+    echo "connect" > $TMPSCRIPT
+    echo "exit" >> $TMPSCRIPT
     $JLINK $TMPSCRIPT
     rm $TMPSCRIPT
 elif [ "$1" = "--reset" ]; then
