@@ -11,6 +11,7 @@ usage:
 nrfjprog.sh <action> [hexfile]
 
 where action is one of
+  --ping
   --reset
   --pin-reset
   --erase-all
@@ -40,6 +41,11 @@ GDB_PORT=2331
 # nrf51-pure-gcc. I've made some changes to use hexfiles instead of binfiles
 
 TMPSCRIPT=/tmp/tmp_$$.jlink
+if [ "$1" = "--ping" ]; then
+    echo ""
+    echo "exit" > $TMPSCRIPT
+    $JLINK $TMPSCRIPT
+    rm $TMPSCRIPT
 if [ "$1" = "--reset" ]; then
     echo ""
     echo -e "${STATUS_COLOR}resetting...${RESET}"
