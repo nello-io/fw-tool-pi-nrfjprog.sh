@@ -22,3 +22,7 @@ where action is one of:
  * `--erase-all`
  * `--flash`
  * `--flash-softdevice`
+ * `--rtt`
+ * `--gdbserver`
+ * `--memwr <addr> --val <val>`
+ * `--memrd <addr> [--w <width>]`
