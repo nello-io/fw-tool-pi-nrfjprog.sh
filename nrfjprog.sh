@@ -19,7 +19,8 @@ where action is one of
   --flash-softdevice    <hexfile>
   --rtt
   --gdbserver
-
+  --memwr <addr> --val <val>
+  --memrd <addr> [--w <width>]
 EOF
 
 GREEN="\033[32m"
@@ -41,7 +42,7 @@ IF="SWD"
 SPEED="4000"
 EMUSERIAL=""
 GDB_PORT=2331
-
+WIDTH=4
 
 
 function msg {
@@ -103,6 +104,24 @@ while [[ $# -gt 0 ]]; do
         shift
         GDB_PORT="$1"
         ;;
+        --memwr)
+        shift
+        CMD="memwr"
+        ADDR="$1"
+        ;;
+        --val)
+        shift
+        VAL="$1"
+        ;;
+        --memrd)
+        shift
+        CMD="memrd"
+        ADDR="$1"
+        ;;
+        --w)
+        shift
+        WIDTH="$1"
+        ;;
         # This is an arg=value type option. Will catch -o=value or --output-file=value
         -o=*|--output-file=*)
         # No need to shift here since the value is part of the same string
@@ -123,7 +142,8 @@ echo DEVICE=$DEVICE
 echo EMUSERIAL=$EMUSERIAL
 echo HEX=$HEX
 
-
+echo ADDR=$ADDR
+echo VAL=$VAL
 # the script commands come from Makefile.posix, distributed with
 # nrf51-pure-gcc. I've made some changes to use hexfiles instead of binfiles
 
@@ -198,6 +218,24 @@ elif [ "$CMD" = "flash-softdevice" ]; then
     echo "loadfile $HEX" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
+    echo "exit" >> $TMPSCRIPT
+    runscript
+elif [ "$CMD" = "memwr" ]; then
+    # Check val is set
+    if [ -z "$VAL" ]; then
+        echo "using memwr without specifying a value"
+        exit 1
+    else
+        echo "r" >> $TMPSCRIPT
+        echo "h" >> $TMPSCRIPT
+        echo "w4 $ADDR, $VAL" >> $TMPSCRIPT
+        echo "r" >> $TMPSCRIPT
+        echo "g" >> $TMPSCRIPT
+        echo "exit" >> $TMPSCRIPT
+        runscript
+    fi
+elif [ "$CMD" = "memrd" ]; then
+    echo "mem $ADDR, $WIDTH" >> $TMPSCRIPT
     echo "exit" >> $TMPSCRIPT
     runscript
 elif [ "$CMD" = "rtt" ]; then
