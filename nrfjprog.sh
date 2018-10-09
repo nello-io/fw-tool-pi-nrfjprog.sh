@@ -246,7 +246,7 @@ elif [ "$CMD" = "rtt" ]; then
         return
     }
     echo -e "${STATUS_COLOR}Starting RTT Server...${RESET}"
-    $JLINKRTTSERVER -device $DEVICE -if $IF -speed $SPEED &
+    $JLINKRTTSERVER -device $DEVICE -if $IF -speed $SPEED -autoconnect 1 &
     JLINK_PID=$!
     sleep 1
     echo -e "\n${STATUS_COLOR}Connecting to RTT Server...${RESET}"
