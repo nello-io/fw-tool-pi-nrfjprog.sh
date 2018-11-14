@@ -43,6 +43,7 @@ SPEED="4000"
 EMUSERIAL=""
 GDB_PORT=2331
 WIDTH=4
+EXITONERROR=1
 
 
 function msg {
@@ -155,13 +156,19 @@ if [ "$EMUSERIAL" ]; then
     echo "SelectEmuBySN $EMUSERIAL" >> $TMPSCRIPT
 fi
 
+# exit on error
+echo "exitonerror $EXITONERROR" >> $TMPSCRIPT
 echo "device $DEVICE" >> $TMPSCRIPT
 echo "if $IF" >> $TMPSCRIPT
 echo "speed $SPEED" >> $TMPSCRIPT
 
 function runscript {
     $JLINK < $TMPSCRIPT
+    code=$?
     rm $TMPSCRIPT
+    if [ $code = 1 ]; then
+        exit $code
+    fi
 }
 
 if [ "$CMD" = "info" ]; then
