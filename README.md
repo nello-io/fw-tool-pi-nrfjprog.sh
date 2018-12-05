@@ -26,3 +26,6 @@ where action is one of:
  * `--gdbserver`
  * `--memwr <addr> --val <val>`
  * `--memrd <addr> [--w <width>]`
+ 
+ Some useful Parameters:
+ * `--family`: specify a device family `nRF52`, `nRF52840_xxAA`, etc
