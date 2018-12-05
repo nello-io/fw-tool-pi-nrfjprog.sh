@@ -8,7 +8,7 @@ which relies on JLinkExe to interface with the JLink hardware.
 
 usage:
 
-nrfjprog.sh <action> [action paramters]
+nrfjprog.sh <action> [action parameters]
 
 where action is one of
   --info
@@ -21,6 +21,10 @@ where action is one of
   --gdbserver
   --memwr <addr> --val <val>
   --memrd <addr> [--w <width>]
+
+Parameters:
+  --familiy     specify a custom device family, <nRF52 (default), nRF52840_xxAA, etc.>
+
 EOF
 
 GREEN="\033[32m"
