@@ -21,6 +21,7 @@ where action is one of
   --gdbserver
   --memwr <addr> --val <val>
   --memrd <addr> [--w <width>]
+  --savebin             <binfile>
 
 Parameters:
   --familiy     specify a custom device family, <nRF52 (default), nRF52840_xxAA, etc.>
@@ -93,6 +94,11 @@ while [[ $# -gt 0 ]]; do
         shift
         CMD="flash"
         HEX="$1"
+        ;;
+        --savebin)
+        shift
+        CMD="savebin"
+        BIN="$1"
         ;;
         -F|--flash-softdevice)
         shift
@@ -211,6 +217,15 @@ elif [ "$CMD" = "flash" ]; then
     echo "r" >> $TMPSCRIPT
     echo "h" >> $TMPSCRIPT
     echo "loadfile $HEX" >> $TMPSCRIPT
+    echo "r" >> $TMPSCRIPT
+    echo "g" >> $TMPSCRIPT
+    echo "exit" >> $TMPSCRIPT
+    runscript
+elif [ "$CMD" = "savebin" ]; then
+    msg save mem to ${BIN}...
+    echo "r" >> $TMPSCRIPT
+    echo "h" >> $TMPSCRIPT
+    echo "savebin $BIN 0x00 0xFFFFFFFFF" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
     echo "exit" >> $TMPSCRIPT
