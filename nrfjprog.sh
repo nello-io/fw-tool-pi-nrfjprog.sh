@@ -100,6 +100,10 @@ while [[ $# -gt 0 ]]; do
         CMD="savebin"
         BIN="$1"
         ;;
+        --w)
+        shift
+        WIDTH="$1"
+        ;;
         -F|--flash-softdevice)
         shift
         CMD="flash-softdevice"
@@ -225,7 +229,7 @@ elif [ "$CMD" = "savebin" ]; then
     msg save mem to ${BIN}...
     echo "r" >> $TMPSCRIPT
     echo "h" >> $TMPSCRIPT
-    echo "savebin $BIN 0x00 0xFFFFFFFFF" >> $TMPSCRIPT
+    echo "savebin $BIN 0x00 $WIDTH" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
     echo "exit" >> $TMPSCRIPT
