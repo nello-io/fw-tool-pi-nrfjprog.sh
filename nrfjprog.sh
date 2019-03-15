@@ -228,7 +228,6 @@ elif [ "$CMD" = "flash" ]; then
 elif [ "$CMD" = "savebin" ]; then
     msg save mem to ${BIN}...
     echo "r" >> $TMPSCRIPT
-    echo "h" >> $TMPSCRIPT
     echo "savebin $BIN 0x00 $WIDTH" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
