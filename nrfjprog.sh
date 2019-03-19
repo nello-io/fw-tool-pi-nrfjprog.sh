@@ -21,6 +21,7 @@ where action is one of
   --gdbserver
   --memwr <addr> --val <val>
   --memrd <addr> [--w <width>]
+  --verify              <binfile>
   --savebin             <binfile>
 
 Parameters:
@@ -242,7 +243,7 @@ elif [ "$CMD" = "savebin" ]; then
 elif [ "$CMD" = "verify" ]; then
     msg verify flash with ${BIN}...
     echo "r" >> $TMPSCRIPT
-    echo "h" >> $TMPSCRIPT
+    # echo "h" >> $TMPSCRIPT
     echo "verifybin $BIN 0x00" >> $TMPSCRIPT
     echo "exit" >> $TMPSCRIPT
     runscript

@@ -11,21 +11,24 @@ project, so much thanks to @hlnd.
 
 usage:
 
-```
+```bash
 nrfjprog.sh <action> [hexfile]
 ```
 
 where action is one of:
- * `--info`
- * `--reset`
- * `--pin-reset`
- * `--erase-all`
- * `--flash`
- * `--flash-softdevice`
- * `--rtt`
- * `--gdbserver`
- * `--memwr <addr> --val <val>`
- * `--memrd <addr> [--w <width>]`
- 
- Some useful Parameters:
- * `--family`: specify a device family `nRF52`, `nRF52840_xxAA`, etc
+
+* `--info`
+* `--reset`
+* `--pin-reset`
+* `--erase-all`
+* `--flash`
+* `--flash-softdevice`
+* `--rtt`
+* `--gdbserver`
+* `--memwr <addr> --val <val>`
+* `--memrd <addr> [--w <width>]`
+* `--verify <binfile>`
+
+Some useful Parameters:
+
+* `--family`: specify a device family `nRF52`, `nRF52840_xxAA`, etc
