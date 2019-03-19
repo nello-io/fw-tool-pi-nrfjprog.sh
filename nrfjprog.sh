@@ -104,6 +104,11 @@ while [[ $# -gt 0 ]]; do
         shift
         WIDTH="$1"
         ;;
+        --verify)
+        shift
+        CMD="verify"
+        BIN="$1"
+        ;;
         -F|--flash-softdevice)
         shift
         CMD="flash-softdevice"
@@ -231,6 +236,13 @@ elif [ "$CMD" = "savebin" ]; then
     echo "savebin $BIN 0x00 $WIDTH" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
+    echo "exit" >> $TMPSCRIPT
+    runscript
+elif [ "$CMD" = "verify" ]; then
+    msg verify flash with ${BIN}...
+    echo "r" >> $TMPSCRIPT
+    echo "h" >> $TMPSCRIPT
+    echo "verifybin $BIN 0x00" >> $TMPSCRIPT
     echo "exit" >> $TMPSCRIPT
     runscript
 elif [ "$CMD" = "flash-softdevice" ]; then
