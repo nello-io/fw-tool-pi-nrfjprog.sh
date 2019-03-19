@@ -224,7 +224,8 @@ elif [ "$CMD" = "erase-all" ]; then
 elif [ "$CMD" = "flash" ]; then
     msg flashing ${HEX}...
     echo "r" >> $TMPSCRIPT
-    echo "h" >> $TMPSCRIPT
+    # TODO: halting causes segfault...
+    # echo "h" >> $TMPSCRIPT
     echo "loadfile $HEX" >> $TMPSCRIPT
     echo "r" >> $TMPSCRIPT
     echo "g" >> $TMPSCRIPT
